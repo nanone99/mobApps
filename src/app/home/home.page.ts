@@ -17,6 +17,8 @@ export class HomePage {
   allTrendingMovies: any[] = []; //Creates an empty array for the master API TrendingMovies list
   displayedMovies: any[] = []; //Creates an empty array for the copy API TrendingMovies list that will be displayed
   searchText: string = ""; // Creates an empty variable that will be used in the search bar
+  currentTitle: string = "";
+
 
   //Source: CApacitator http lecture
   // This is the API call for the Trending movies
@@ -52,12 +54,22 @@ export class HomePage {
     this.displayedMovies = result.data.results; //Bring on the data for all the movies based on the searched URL
   }
 
-  
-  onSearch() {
+    onSearch() {
+    this.titleSwitch(); 
     if (this.searchText.trim() === "") {
       this.displayedMovies = this.allTrendingMovies.slice();
       return;
     }
     this.getSearchResults();
   }
+  
+
+  titleSwitch() {
+      if (this.searchText.trim() === "") {
+        this.currentTitle = "Today's Trending Movies";
+      } else {
+        this.currentTitle = this.searchText + " Movies";
+      }
+    }
+    
 }

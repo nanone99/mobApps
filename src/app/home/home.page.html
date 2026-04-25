@@ -1,21 +1,42 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      G00474430
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let movie of latestMovies">
-    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" />
+  
+   <!-- Enter Click Source: https://stackoverflow.com/questions/41597828/searchbar-search-on-enter-key -->
+  <ion-searchbar
+  value="Value"
+  placeholder="Movie Name"
+  [(ngModel)]="searchText"
+  (keyup.enter)="onSearch()"
+  style="padding: 10px;">
+  Search: 
+  </ion-searchbar>
+
+  <div style="padding: 0 10px 10px 10px;">
+    <ion-button expand="block" (click)="onSearch()">
+      SEARCH
+    </ion-button>
+  </div>
+
+
+  <ion-text color="primary">
+    <h1 style="padding-left: 16px;">Today's Trending Movies</h1>
+  </ion-text>
+  
+  <ion-card *ngFor="let movie of displayedMovies">
+    <img oading="lazy" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" />
     <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{movie.title}}</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      {{movie.overview}}
     </ion-card-content>
   </ion-card>
 </ion-content>

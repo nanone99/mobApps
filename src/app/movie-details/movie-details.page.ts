@@ -3,13 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
 import { NgFor, NgIf } from '@angular/common';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent} from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from "@ionic/angular/standalone";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
   styleUrls: ['./movie-details.page.scss'],
-  imports: [ IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, NgFor, NgIf],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, NgFor, NgIf],
 })
 
 export class MovieDetailsPage {
@@ -21,7 +22,7 @@ export class MovieDetailsPage {
 
   creditsBaseUrl: string = "https://api.themoviedb.org/3/movie/";
 
-    constructor(private route: ActivatedRoute, private mhs: MyHttp) {}
+    constructor(private route: ActivatedRoute, private mhs: MyHttp, private router: Router) {}
 
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
@@ -39,11 +40,14 @@ export class MovieDetailsPage {
 
   async getMovieDetails() {
     const url = `https://api.themoviedb.org/3/movie/${this.movieId}?api_key=5e54dc8ed94df0555b86c1f840441c4e`;
-    const options: HttpOptions = { url };
-    const result = await this.mhs.get(options);
+    const result = await this.mhs.get({ url });
     this.movieDetails = result.data;
+  }  
+
+  openPerson(id: number) {
+    this.router.navigate(['/details', id]);
+  } 
 }
 
-  
-}
+ 
 

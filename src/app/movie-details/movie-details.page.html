@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="movieDetails">
   <ion-toolbar>
     <ion-title>{{ movieDetails.title }}</ion-title>
   </ion-toolbar>
@@ -6,31 +6,32 @@
 
 <ion-content>
 
-  <ion-card *ngIf="movieDetails">
-    <ion-card-content>
-      <p>{{ movieDetails.overview }}</p>
-    </ion-card-content>
-  </ion-card>
-  
+  <ng-container *ngIf="movieDetails">
+    <ion-card>
+      <ion-card-content>
+        <p>{{ movieDetails.overview }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
 
   <h2>Cast</h2>
-<ion-card *ngFor="let actor of cast">
-  <img *ngIf="actor.profile_path"
-       [src]="'https://image.tmdb.org/t/p/w500' + actor.profile_path" />
-  <ion-card-header>
-    <ion-card-title>{{ actor.character }}</ion-card-title>
-  </ion-card-header>
-</ion-card>
-
-  
+  <ion-card *ngFor="let actor of cast" (click)="openPerson(actor.id)">
+    <img *ngIf="actor.profile_path"
+         [src]="'https://image.tmdb.org/t/p/w500' + actor.profile_path" />
+    <ion-card-header>
+      <ion-card-title>{{ actor.character }}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
 
   <h2>Crew</h2>
-  <ion-card *ngFor="let member of crew">
+  <ion-card *ngFor="let member of crew" (click)="openPerson(member.id)">
     <img *ngIf="member.profile_path"
          [src]="'https://image.tmdb.org/t/p/w500' + member.profile_path" />
     <ion-card-header>
       <ion-card-title>{{ member.job }}</ion-card-title>
     </ion-card-header>
   </ion-card>
+
 </ion-content>
+
 

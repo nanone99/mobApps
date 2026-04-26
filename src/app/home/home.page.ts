@@ -13,6 +13,7 @@ import { heart, heartOutline, heartSharp } from 'ionicons/icons';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  standalone: true,
   imports: [IonIcon, IonButtons, IonSearchbar, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, FormsModule],
 })
 
@@ -93,5 +94,9 @@ export class HomePage {
   openDetails(id: number) {
     this.router.navigate(['/movie-details', id]);
   }
+
+  goToFavourites() {
+    this.router.navigate(['/favourites']);
+  }  
     
 }

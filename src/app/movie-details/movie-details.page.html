@@ -1,13 +1,36 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>movie-details</ion-title>
+    <ion-title>{{ movieDetails.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">movie-details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+
+  <ion-card *ngIf="movieDetails">
+    <ion-card-content>
+      <p>{{ movieDetails.overview }}</p>
+    </ion-card-content>
+  </ion-card>
+  
+
+  <h2>Cast</h2>
+<ion-card *ngFor="let actor of cast">
+  <img *ngIf="actor.profile_path"
+       [src]="'https://image.tmdb.org/t/p/w500' + actor.profile_path" />
+  <ion-card-header>
+    <ion-card-title>{{ actor.character }}</ion-card-title>
+  </ion-card-header>
+</ion-card>
+
+  
+
+  <h2>Crew</h2>
+  <ion-card *ngFor="let member of crew">
+    <img *ngIf="member.profile_path"
+         [src]="'https://image.tmdb.org/t/p/w500' + member.profile_path" />
+    <ion-card-header>
+      <ion-card-title>{{ member.job }}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
 </ion-content>
+

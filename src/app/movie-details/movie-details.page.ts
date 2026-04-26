@@ -1,20 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MyHttp } from '../services/my-http';
+import { HttpOptions } from '@capacitor/core';
+import { NgFor, NgIf } from '@angular/common';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
   styleUrls: ['./movie-details.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [ IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, NgFor, NgIf],
 })
-export class MovieDetailsPage implements OnInit {
 
-  constructor() { }
+export class MovieDetailsPage {
+
+  movieId!: number;
+  cast: any[] = [];
+  crew: any[] = [];
+  movieDetails: any = null;
+
+  creditsBaseUrl: string = "https://api.themoviedb.org/3/movie/";
+
+    constructor(private route: ActivatedRoute, private mhs: MyHttp) {}
 
   ngOnInit() {
+    this.movieId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getCredits();
+    this.getMovieDetails();
   }
 
+  async getCredits() {
+    const url = this.creditsBaseUrl + this.movieId + "/credits?api_key=5e54dc8ed94df0555b86c1f840441c4e";
+    const options: HttpOptions = { url };
+    const result = await this.mhs.get(options);
+    this.cast = result.data.cast;
+    this.crew = result.data.crew;
+  }
+
+  async getMovieDetails() {
+    const url = `https://api.themoviedb.org/3/movie/${this.movieId}?api_key=5e54dc8ed94df0555b86c1f840441c4e`;
+    const options: HttpOptions = { url };
+    const result = await this.mhs.get(options);
+    this.movieDetails = result.data;
 }
+
+  
+}
+

@@ -4,6 +4,7 @@ import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +33,7 @@ export class HomePage {
     "https://api.themoviedb.org/3/search/movie?api_key=5e54dc8ed94df0555b86c1f840441c4e&query="; // URL and then we will add the search variables seearchtext ="toystory"
 
   
-  constructor(private mhs: MyHttp) {}
+  constructor(private mhs: MyHttp, private router: Router) {}
 
   ngOnInit() {
     this.getTrendingResults(); //This will getTrendingResults when the app gets initiated before anything is searched
@@ -63,13 +64,16 @@ export class HomePage {
     this.getSearchResults();
   }
   
-
   titleSwitch() {
       if (this.searchText.trim() === "") {
         this.currentTitle = "Today's Trending Movies";
       } else {
         this.currentTitle = this.searchText + " Movies";
       }
+    }
+    
+  openDetails(id: number) {
+     this.router.navigate(['/movie-details', id]);
     }
     
 }

@@ -1,10 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Favourites</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <p>Your favourites will appear here.</p>
+
+  <h1>Favourite Movies</h1>
+
+  <ion-card *ngFor="let movie of favouriteMovies">
+    <ion-img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"></ion-img>
+
+    <ion-card-header>
+      <ion-card-title>{{ movie.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-button expand="block" (click)="openDetails(movie.id)">
+      DETAILS
+    </ion-button>
+  </ion-card>
+
 </ion-content>
+
 

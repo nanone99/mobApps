@@ -3,14 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
 import { NgFor, NgIf } from '@angular/common';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonButton } from "@ionic/angular/standalone";
 import { Router } from '@angular/router';
+import { FavouritesService } from '../services/favourites.service';
+
 
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
   styleUrls: ['./movie-details.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, NgFor, NgIf],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, NgFor, NgIf, IonButton],
 })
 
 export class MovieDetailsPage {
@@ -22,7 +24,7 @@ export class MovieDetailsPage {
 
   creditsBaseUrl: string = "https://api.themoviedb.org/3/movie/";
 
-    constructor(private route: ActivatedRoute, private mhs: MyHttp, private router: Router) {}
+    constructor(private route: ActivatedRoute, private mhs: MyHttp, private router: Router,private favs: FavouritesService) {}
 
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
@@ -46,7 +48,12 @@ export class MovieDetailsPage {
 
   openPerson(id: number) {
     this.router.navigate(['/details', id]);
-  } 
+  }
+
+  async addToFavourites() {
+    await this.favs.add(this.movieDetails);
+  }
+  
 }
 
  

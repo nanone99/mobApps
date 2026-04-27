@@ -1,6 +1,14 @@
 <ion-header *ngIf="movieDetails">
   <ion-toolbar>
     <ion-title>{{ movieDetails.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="goToFavourites()">
+        <ion-icon slot="icon-only" name="heart" color="dark"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="goHome()">
+        <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

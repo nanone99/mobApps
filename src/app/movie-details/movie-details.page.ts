@@ -74,7 +74,7 @@ export class MovieDetailsPage {
   }
 
    //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
-  //Method
+  //Method to navigate to favourites
   goToFavourites() {
     this.router.navigate(['/favourites']);
   }  

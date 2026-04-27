@@ -51,6 +51,8 @@ export class HomePage {
     this.getTrendingResults(); //This will getTrendingResults when the app gets initiated before anything is searched
   }
 
+  //Data Retrieval Methods
+
   //Source: Capacitator http lecture
   //Method to bring over the API Json data for Today's trending movies in the homepag
   async getTrendingResults() {
@@ -68,7 +70,8 @@ export class HomePage {
     this.displayedMovies = result.data.results; //Bring on the data for all the movies based on the searched URL
   }
 
-  //Source; 
+  //Fitlering list/title methods
+
   //This method controls the display of trending movies when searchText is blank or display the searched movie
   onSearch() {
     this.titleSwitch();  //This triggers the method below to change the title when a movie is searched
@@ -90,6 +93,9 @@ export class HomePage {
     }
   }
   
+
+  //Navigation Methods
+
   //This will help us route the id to the movie details page to ensure it is passed over the URL.
   openDetails(id: number) {
     this.router.navigate(['/movie-details', id]);

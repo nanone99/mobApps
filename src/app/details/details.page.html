@@ -1,12 +1,22 @@
+<!-- This html is to display the person's name on the top and then add the home, favourites icon that will trigger the navigation methods below -->
 <ion-header>
   <ion-toolbar>
     <ion-title>{{ person?.name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="goToFavourites()">
+        <ion-icon slot="icon-only" name="heart" color="dark"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="goHome()">
+        <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="person">
 
   <ion-card>
+     <!-- This will display the picture and information of the actor, DOB, Death day and alias-->
     <img *ngIf="person.profile_path" [src]="'https://image.tmdb.org/t/p/w500' + person.profile_path" width="140"/>
 
     <ion-card-header>
@@ -16,11 +26,9 @@
         <span *ngIf="person.deathday">Died: {{ person.deathday }}</span>
       </ion-card-subtitle>
     </ion-card-header>
-
     <ion-card-content>
       <p><strong>Also Known As:</strong></p>
       <p *ngFor="let aka of person.also_known_as">{{ aka }}</p>
-
       <p><strong>Biography:</strong></p>
       <p>{{ person.biography }}</p>
     </ion-card-content>
@@ -29,6 +37,7 @@
   <h2>Other Movies</h2>
 
   <ion-list>
+    <!-- This will iterate on the movies JSON for that ID of the movie and bring the posted at the end of the line -->
     <ion-item *ngFor="let movie of movies" (click)="openMovie(movie.id)">
       <ion-label>
         {{ movie.title }}

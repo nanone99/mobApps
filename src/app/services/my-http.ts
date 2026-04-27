@@ -7,6 +7,8 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class MyHttp {
   
+//Source: Capacitator Lecture
+//This will use the capacitator plugin to retrieve the data from an object which in this case is the JSON data from the movie API
 async get(options: HttpOptions) {
     return await CapacitorHttp.get(options);
   }

@@ -1,3 +1,4 @@
+<!-- This html is to display the movie title on the top and then add the home, favourites icon that will trigger the navigation methods below -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
@@ -11,25 +12,26 @@
 
 
 <ion-content>
-
   <h1>Favourite Movies</h1>
-
+  <!-- This will iterate over the favourites movies array which gets updated with the service storage  -->
   <ion-card *ngFor="let movie of favouriteMovies">
     <ion-img
       loading="lazy"
       style="width: 300px; height: auto; margin: 0 auto;"
       [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
     </ion-img>
-
-  
+    
+    <!-- This will display the movie title -->
     <ion-card-header>
       <ion-card-title>{{ movie.title }}</ion-card-title>
     </ion-card-header>
 
+    <!-- This will display the button to remove the movie from the array in the storage based on the ID -->
     <ion-button color="danger" expand="block" (click)="remove(movie.id)">
       Remove
     </ion-button>  
 
+    <!-- This will display the button to navigate back to the movie-details section -->
     <ion-button expand="block" (click)="openDetails(movie.id)">
       DETAILS
     </ion-button>

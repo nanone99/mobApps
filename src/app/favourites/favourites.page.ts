@@ -27,6 +27,12 @@ export class FavouritesPage {
     this.favouriteMovies = await this.favs.get();
   }
 
+  async remove(id: number) {
+    await this.favs.remove(id);
+    this.favouriteMovies = await this.favs.get(); // refresh list
+  }
+  
+
   openDetails(id: number) {
     this.router.navigate(['/movie-details', id]);
   }

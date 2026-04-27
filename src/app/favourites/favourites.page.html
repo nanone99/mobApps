@@ -21,6 +21,10 @@
       <ion-card-title>{{ movie.title }}</ion-card-title>
     </ion-card-header>
 
+    <ion-button color="danger" expand="block" (click)="remove(movie.id)">
+      Remove
+    </ion-button>  
+
     <ion-button expand="block" (click)="openDetails(movie.id)">
       DETAILS
     </ion-button>

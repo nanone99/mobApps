@@ -29,4 +29,11 @@ export class FavouritesService {
     favs.push(movie);
     await this.set(favs);
   }
+
+  async remove(id: number) {
+    const favs = await this.get();
+    const updated = favs.filter((m: any) => m.id !== id);
+    await this.set(updated);
+  }
+  
 }

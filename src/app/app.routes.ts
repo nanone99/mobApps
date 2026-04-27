@@ -8,7 +8,7 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full',
+    pathMatch: 'full'
   },
   {
     path: 'movie-details/:id',
@@ -17,10 +17,9 @@ export const routes: Routes = [
   {
     path: 'details/:id',
     loadComponent: () => import('./details/details.page').then(m => m.DetailsPage)
-  }
-  ,
+  },
   {
     path: 'favourites',
     loadComponent: () => import('./favourites/favourites.page').then( m => m.FavouritesPage)
-  },
+  }, 
 ];

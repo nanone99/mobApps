@@ -37,7 +37,11 @@
 
 <!-- This block of code will loop over the Json from the API and will show either trending or searched movies (based on the onSearch ts) and on click, it will directo to details by storing the id and pass it over the URL -->
  <ion-card *ngFor="let movie of displayedMovies" (click)="openDetails(movie.id)">
-   <img loading="lazy" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" />
+   <img loading="lazy" 
+        src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" 
+        style="width: 300px; height: auto; margin: 0 auto;"
+        />
+    
    <ion-card-header>
     <!-- This binding will bring the title from the either one or the other API -->
      <ion-card-title>{{ movie.title }}</ion-card-title>
@@ -47,6 +51,5 @@
      {{ movie.overview }}
    </ion-card-content>
  </ion-card>
-
 </ion-content>
 

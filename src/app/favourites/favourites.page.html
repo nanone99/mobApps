@@ -15,8 +15,13 @@
   <h1>Favourite Movies</h1>
 
   <ion-card *ngFor="let movie of favouriteMovies">
-    <ion-img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"></ion-img>
+    <ion-img
+      loading="lazy"
+      style="width: 300px; height: auto; margin: 0 auto;"
+      [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
+    </ion-img>
 
+  
     <ion-card-header>
       <ion-card-title>{{ movie.title }}</ion-card-title>
     </ion-card-header>

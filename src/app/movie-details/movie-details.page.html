@@ -1,3 +1,4 @@
+<!-- This html is to display the movie title on the top and then add the home, favourites icon that will trigger the navigation methods below -->
 <ion-header *ngIf="movieDetails">
   <ion-toolbar>
     <ion-title>{{ movieDetails.title }}</ion-title>
@@ -13,11 +14,12 @@
 </ion-header>
 
 <ion-content>
-
+  <!-- This will display the button to trigger addToFavourites method which saves the movie into storage -->
   <ion-button expand="block" color="primary" (click)="addToFavourites()">
     Add To Favourites
   </ion-button>
   
+  <!-- This injects the data biding that shows the overview of the movie -->
   <ng-container *ngIf="movieDetails">
     <ion-card>
       <ion-card-content>
@@ -26,41 +28,46 @@
     </ion-card>
   </ng-container>
 
+  <!-- This will display the cast and crew information -->
   <h2>Cast</h2>
+  <!-- This iterates over the cast inforamtion and on click navigates with the ID into the JSON cast inforamtion -->
   <ion-card *ngFor="let actor of cast" (click)="openPerson(actor.id)">
+    <!-- This will show the image and no image is available, it will inject below the image from assests for the no image available -->
     <img *ngIf="actor.profile_path; else noActorImage"
      [src]="'https://image.tmdb.org/t/p/w500' + actor.profile_path" 
      width="120"
      />
-
     <ng-template #noActorImage>
       <img src="assets/no-image.png" 
       width="120"
       />
     </ng-template>
-
+    
+    <!-- This shows the character played by each actor -->
     <ion-card-header>
       <ion-card-title>{{ actor.character }}</ion-card-title>
     </ion-card-header>
   </ion-card>
 
+  <!-- This iterates over the cast inforamtion and on click navigates with the ID into the JSON crew inforamtion -->
   <h2>Crew</h2>
+  <!-- This will show the image and no image is available, it will inject below the image from assests for the no image available -->
   <ion-card *ngFor="let member of crew" (click)="openPerson(member.id)">
     <img *ngIf="member.profile_path else noActorImage"
          [src]="'https://image.tmdb.org/t/p/w500' + member.profile_path" 
     width="120"     
     />
-
     <ng-template #noActorImage>
     <img src="assets/no-image.png" 
     width="120"
     />
+
+    <!-- This shows the job of each of the crew members -->
     </ng-template>
     <ion-card-header>
       <ion-card-title>{{ member.job }}</ion-card-title>
     </ion-card-header>
   </ion-card>
-
 </ion-content>
 
 

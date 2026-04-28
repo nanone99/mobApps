@@ -1,34 +1,57 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar style="--background: #032541; color: white;">
+
     <ion-title>
       G00474430
     </ion-title>
-    <!-- This code includes all the navigation icons to favourites. home, etc deending on the page and triggers the Ts fucntion in home to navigate to favourites -->
+
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="goToFavourites()">
-        <ion-icon slot="icon-only" name="heart" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="heart" color="light"></ion-icon>
       </ion-button>
-    </ion-buttons>    
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 
+
 <ion-content [fullscreen]="true">
-  
+  <div style="
+    background: linear-gradient(rgba(3,37,65,0.8), rgba(3,37,65,0.8)),
+                url('assets/your-background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 20px;
+    text-align: center;
+    color: white;
+  ">
+
+    <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 10px;">
+      Welcome.
+    </h1>
+
+    <h2 style="font-size: 18px; font-weight: 400; margin-bottom: 25px;">
+      Millions of movies, TV shows and people to discover. Start exploring now.
+    </h2>
+
+
    <!-- Enter Click Source: https://stackoverflow.com/questions/41597828/searchbar-search-on-enter-key -->
    <ion-searchbar
-   placeholder="Movie Name"
+   placeholder="Search for Movie"
    [(ngModel)]="searchText"
    (keyup.enter)="onSearch()"
-   style="padding: 10px;">
+   shape="round"
+   style="">
  </ion-searchbar>
 
  <!-- This has the button to search for a movie in the all movies API call, it does it by triggering the ts function onSearch so it switches between trending and all movies -->
- <div style="padding: 0 10px 10px 10px;">
-   <ion-button expand="block" (click)="onSearch()">
-     SEARCH
-   </ion-button>
- </div>
+ <ion-button expand="block" shape="round" (click)="onSearch()">
+  Search
+</ion-button>
+
+</div>
+
 
 <!-- This block of code dinamically changes the title betwwen Today's trending movies and whatever is search with the titleswitch ts code -->
 <ion-text color="primary">

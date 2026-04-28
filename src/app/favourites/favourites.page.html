@@ -1,42 +1,36 @@
-<!-- This html is to display the movie title on the top and then add the home, favourites icon that will trigger the navigation methods below -->
+<!-- This html is to display the favourites title on the top and then add the home navigation trigger with goHome from Ts -->
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar style="--background: #032541; color: white;">
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="goHome()">
-        <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="home" color="light"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Favourites</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- This will ensure all the formatting remains the same in the page-->
+<ion-content style="--background: #032541; color: white;">
+  <!-- This will show the text favourties movies on the top-->
+  <h1 style="color: white; padding-left: 16px;">Favourite Movies</h1>
+  
+  <!-- Source: https://www.geeksforgeeks.org/css/make-a-div-horizontally-scrollable-using-css/
+  This is the div section that contains the poster display for all the saved favourites movies -->
+  <div style="display: flex;overflow-x: auto;overflow-y: hidden;gap: 15px;padding: 15px; white-space: nowrap;-webkit-overflow-scrolling: touch;">
+    <!-- The following section is to display the poster from the API call and image and make it clickable to go into the movie detaisl -->
+    <div *ngFor="let movie of favouriteMovies" style="display: inline-block;width: 300px;flex-shrink: 0;position: relative;cursor: pointer;"(click)="openDetails(movie.id)">
+      <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" 
+     style="width: 300px; height: auto; border-radius: 10px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.4);"/>
 
-<ion-content>
-  <h1>Favourite Movies</h1>
-  <!-- This will iterate over the favourites movies array which gets updated with the service storage  -->
-  <ion-card *ngFor="let movie of favouriteMovies">
-    <ion-img
-      loading="lazy"
-      style="width: 300px; height: auto; margin: 0 auto;"
-      [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
-    </ion-img>
-    
-    <!-- This will display the movie title -->
-    <ion-card-header>
-      <ion-card-title>{{ movie.title }}</ion-card-title>
-    </ion-card-header>
+      <!-- This will replace the button that removed the favourites with a hearth icon that then clicked, it will remove the movie from favourites -->
+      <ion-icon name="heart" (click)="remove(movie.id); $event.stopPropagation();"
+      style="position: absolute; top: 8px; right: 8px; font-size: 24px; color:white; background: rgba(0,0,0,0.5); padding: 6px; border-radius: 50%;">
+      </ion-icon>
 
-    <!-- This will display the button to remove the movie from the array in the storage based on the ID -->
-    <ion-button color="danger" expand="block" (click)="remove(movie.id)">
-      Remove
-    </ion-button>  
-
-    <!-- This will display the button to navigate back to the movie-details section -->
-    <ion-button expand="block" (click)="openDetails(movie.id)">
-      DETAILS
-    </ion-button>
-  </ion-card>
-
+      <!-- This will add the title underneath the image -->
+      <div style="margin-top: 8px;font-size: 14px; font-weight: 600; text-align: center; color: white; white-space: normal;">{{ movie.title }}
+      </div>
+    </div>
+  </div>
 </ion-content>
-
-

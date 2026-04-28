@@ -1,78 +1,68 @@
+<!-- This html is to display the student number on top and then add the favourites navigation trigger with goToFavorites from Ts -->
 <ion-header>
   <ion-toolbar style="--background: #032541; color: white;">
-
-    <ion-title>
-      G00474430
-    </ion-title>
-
+    <ion-title>G00474430</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="goToFavourites()">
         <ion-icon slot="icon-only" name="heart" color="light"></ion-icon>
       </ion-button>
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
+<!-- This will include the division withe inforamtion to search for a movie -->
+<ion-content [fullscreen]="true" class="ion-no-padding">
+  <div style="background: linear-gradient(rgba(3,37,65,0.8), rgba(3,37,65,0.8)); padding: 50px 20px; text-align: center; color: white;">
+    <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 25px;">Welcome.</h1>
+    <h2 style="font-size: 18px; font-weight: 400; margin-bottom: 25px;">Millions of movies, TV shows and people to discover. Start exploring now.</h2>
+    <!-- This will have the search part that will trigger onSearch function either in the button or by clicking enter which will filter 
+     the displayed trending movies into the searched ones -->
+    <ion-searchbar
+      placeholder="Search for Movie"
+      [(ngModel)]="searchText"
+      (keyup.enter)="onSearch()"
+      shape="round">
+    </ion-searchbar>
+    <ion-button expand="block" shape="round" (click)="onSearch()">Search</ion-button>
+  </div>
 
+  <!-- This will trigger the switch of title between Today's trending and the searched title in the Ts file -->
+  <div>
+    <ion-text color="primary">
+      <h1 style="padding-left: 16px;">{{ currentTitle }}</h1>
+    </ion-text>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <div style="
-    background: linear-gradient(rgba(3,37,65,0.8), rgba(3,37,65,0.8)),
-                url('assets/your-background.jpg');
-    background-size: cover;
-    background-position: center;
-    padding: 50px 20px;
-    text-align: center;
-    color: white;
-  ">
+<!-- Top Horizontal Scrolling Section-->
 
-    <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 10px;">
-      Welcome.
-    </h1>
+<!-- This will ensure all the formatting in blue in th background stays the same-->
+<div style="display: flex;flex-direction: column; min-height: calc(100vh - 56px);background: #032541; box-sizing: border-box;">
 
-    <h2 style="font-size: 18px; font-weight: 400; margin-bottom: 25px;">
-      Millions of movies, TV shows and people to discover. Start exploring now.
-    </h2>
-
-
-   <!-- Enter Click Source: https://stackoverflow.com/questions/41597828/searchbar-search-on-enter-key -->
-   <ion-searchbar
-   placeholder="Search for Movie"
-   [(ngModel)]="searchText"
-   (keyup.enter)="onSearch()"
-   shape="round"
-   style="">
- </ion-searchbar>
-
- <!-- This has the button to search for a movie in the all movies API call, it does it by triggering the ts function onSearch so it switches between trending and all movies -->
- <ion-button expand="block" shape="round" (click)="onSearch()">
-  Search
-</ion-button>
-
+<!-- Source: https://www.geeksforgeeks.org/css/make-a-div-horizontally-scrollable-using-css/   This division keeps the top horizontal scrolling of movies on top-->
+<div style=" display: flex;overflow-x: auto; overflow-y: hidden; gap: 15px; padding: 15px; background: #032541; scrollbar-width: thin; scrollbar-color: #0a3a63 #032541;white-space: nowrap;">
+  <!-- This ngFor will allow to click on the poster to access more details in the below section by triggering selectedMovie-->
+  <div *ngFor="let movie of displayedMovies"(click)="selectedMovie = movie"
+     style="min-width: 150px;background: #1b3a57;padding: 10px;border-radius: 10px; text-align: center;">
+  <img src="https://image.tmdb.org/t/p/w300{{ movie.poster_path }}"
+       style="width: 150px; height: 225px; object-fit: cover; border-radius: 8px;" />
+  <div style="margin-top: 8px; font-weight: 700; font-size: 14px; color: white;">{{ movie.title }}
+  </div>
+  <div style="font-size: 12px; opacity: 0.7; color: white;">{{ movie.release_date }}</div>
+  </div>
 </div>
 
-
-<!-- This block of code dinamically changes the title betwwen Today's trending movies and whatever is search with the titleswitch ts code -->
-<ion-text color="primary">
-  <h1 style="padding-left: 16px;">{{ currentTitle }}</h1>
-</ion-text>
-
-<!-- This block of code will loop over the Json from the API and will show either trending or searched movies (based on the onSearch ts) and on click, it will directo to details by storing the id and pass it over the URL -->
- <ion-card *ngFor="let movie of displayedMovies" (click)="openDetails(movie.id)">
-   <img loading="lazy" 
-        src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" 
-        style="width: 300px; height: auto; margin: 0 auto;"
-        />
+<!-- This is the bottom part of the screen where the overview and the poster is displayed-->
+<div style="flex: 1; width: 100%; background: #0a3a63; padding: 20px; color: white; border-radius: 10px 10px 0 0; box-sizing: border-box; overflow-y: auto;">
+  <!-- This dislplay the poster and the overview from the API based on the selectedMovie variable-->
+  <div *ngIf="selectedMovie">
+    <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+      <img src="https://image.tmdb.org/t/p/w300{{ selectedMovie.poster_path }}"(click)="openDetails(selectedMovie.id)"
+           style="width: 350px; border-radius: 10px; cursor: pointer; max-width: 80vw;" />
+    </div>
     
-   <ion-card-header>
-    <!-- This binding will bring the title from the either one or the other API -->
-     <ion-card-title>{{ movie.title }}</ion-card-title>
-   </ion-card-header>
-   <!-- This binding will bring the overview from the either one or the other API -->
-   <ion-card-content>
-     {{ movie.overview }}
-   </ion-card-content>
- </ion-card>
-</ion-content>
-
+    <!-- This dislplays the movie title and then the overview-->
+    <h2 style="font-size: 30px;font-weight: 700;margin-bottom: 10px;text-align: center;width: 100%;">{{ selectedMovie.title }}</h2>
+    <p style="opacity: 0.9;font-size: 25px;line-height: 1.4;text-align: left;width: 100%;overflow-y: auto;">{{ selectedMovie.overview }}</p>
+  </div>
+</div>
+</div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonText, IonSearchbar, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonText, IonSearchbar, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
 import { FormsModule } from '@angular/forms';
@@ -12,9 +12,8 @@ import { heart, heartOutline, heartSharp } from 'ionicons/icons';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonButtons, IonSearchbar, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, FormsModule],
+  imports: [IonIcon, IonButtons, IonSearchbar, IonButton, IonText, IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, FormsModule],
 })
 
 export class HomePage {
@@ -23,6 +22,8 @@ export class HomePage {
   displayedMovies: any[] = []; //Creates an empty array for the copy API TrendingMovies list that will be displayed
   searchText: string = ""; // Creates an empty variable that will be used in the search bar
   currentTitle: string = ""; // This will create a varaible to display between Today's trending movies and title + Movies
+  selectedMovie: any = null;
+
 
 
   //Source: CApacitator http lecture
@@ -49,6 +50,7 @@ export class HomePage {
 
   ngOnInit() {
     this.getTrendingResults(); //This will getTrendingResults when the app gets initiated before anything is searched
+    this.currentTitle = "Today's Trending Movies";
   }
 
   //Data Retrieval Methods

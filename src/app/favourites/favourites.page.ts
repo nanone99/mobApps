@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FavouritesService } from '../services/favourites.service';
 import { Router } from '@angular/router';
-import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonButton, IonImg, IonHeader, IonToolbar, IonButtons, IonIcon, IonTitle } from "@ionic/angular/standalone";
+import { IonContent, IonButton, IonHeader, IonToolbar, IonButtons, IonIcon, IonTitle } from "@ionic/angular/standalone";
 import { NgFor } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { home } from 'ionicons/icons';
@@ -9,8 +9,7 @@ import { home } from 'ionicons/icons';
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.page.html',
-  styleUrls: ['./favourites.page.scss'],
-  imports: [IonTitle, IonIcon, IonButtons, IonToolbar, IonHeader, IonContent,IonCard,IonCardHeader,IonCardTitle,IonButton,IonImg,NgFor]
+  imports: [IonTitle, IonIcon, IonButtons, IonToolbar, IonHeader, IonContent,IonButton,NgFor]
 })
 
 export class FavouritesPage {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonItem, IonList, IonLabel, IonThumbnail, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
 import { addIcons } from 'ionicons';
@@ -12,9 +12,8 @@ import { heart, heartOutline, heartSharp, home } from 'ionicons/icons';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
-  styleUrls: ['./details.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, IonButtons, IonLabel, IonList, IonItem,IonContent, IonHeader, IonTitle, IonToolbar,IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,IonImg,CommonModule, FormsModule, NgIf, NgFor, IonThumbnail]
+  imports: [IonIcon, IonButton, IonButtons,IonContent, IonHeader, IonTitle, IonToolbar,IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,CommonModule, FormsModule, NgIf, NgFor]
 })
 export class DetailsPage implements OnInit {
 

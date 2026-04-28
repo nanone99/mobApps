@@ -1,73 +1,75 @@
 <!-- This html is to display the movie title on the top and then add the home, favourites icon that will trigger the navigation methods below -->
 <ion-header *ngIf="movieDetails">
-  <ion-toolbar>
+  <ion-toolbar style="--background: #032541; color: white;">
     <ion-title>{{ movieDetails.title }}</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="goToFavourites()">
-        <ion-icon slot="icon-only" name="heart" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="heart" olor="light"></ion-icon>
       </ion-button>
       <ion-button fill="clear" (click)="goHome()">
-        <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="home" olor="light"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<!-- This will ensure that all the formatting is consistent in all the page -->
+<ion-content class="ion-no-padding" style="--background: #032541; color: white;">
   <!-- This will display the button to trigger addToFavourites method which saves the movie into storage -->
-  <ion-button expand="block" color="primary" (click)="addToFavourites()">
-    Add To Favourites
-  </ion-button>
-  
+  <ion-button  shape="round" expand="block" color="primary" (click)="addToFavourites()">Add To Favourites</ion-button>
   <!-- This injects the data biding that shows the overview of the movie -->
-  <ng-container *ngIf="movieDetails">
-    <ion-card>
+  <  <ng-container *ngIf="movieDetails">
+    <ion-card style="background: #0a3a63; color: white; border-radius: 12px; margin: 16px;">
       <ion-card-content>
-        <p>{{ movieDetails.overview }}</p>
+        <p style="font-size: 18px; line-height: 1.6;">{{ movieDetails.overview }}</p>
       </ion-card-content>
     </ion-card>
   </ng-container>
 
-  <!-- This will display the cast and crew information -->
+  <!-- Source: https://www.geeksforgeeks.org/css/make-a-div-horizontally-scrollable-using-css/
+  This will display the cast information in a horizontal scroll -->
   <h2>Cast</h2>
-  <!-- This iterates over the cast inforamtion and on click navigates with the ID into the JSON cast inforamtion -->
-  <ion-card *ngFor="let actor of cast" (click)="openPerson(actor.id)">
-    <!-- This will show the image and no image is available, it will inject below the image from assests for the no image available -->
-    <img *ngIf="actor.profile_path; else noActorImage"
-     [src]="'https://image.tmdb.org/t/p/w500' + actor.profile_path" 
-     width="120"
-     />
-    <ng-template #noActorImage>
-      <img src="assets/no-image.png" 
-      width="120"
-      />
-    </ng-template>
+  <div style="display: flex;overflow-x: auto;overflow-y: hidden;gap: 15px;padding: 10px 0;white-space: nowrap;">
     
-    <!-- This shows the character played by each actor -->
-    <ion-card-header>
-      <ion-card-title>{{ actor.character }}</ion-card-title>
-    </ion-card-header>
-  </ion-card>
-
-  <!-- This iterates over the cast inforamtion and on click navigates with the ID into the JSON crew inforamtion -->
+    <!-- The following section is to display the cast from the API call it also includes an else statement to display the no picture from assets -->
+    <ion-card *ngFor="let actor of cast" (click)="openPerson(actor.id)"
+      style="display: inline-block;min-width: 150px;flex-shrink: 0;text-align: center;">
+        <img *ngIf="actor.profile_path; else noActorImage"
+           [src]="'https://image.tmdb.org/t/p/w500' + actor.profile_path"
+           style="width: 150px; height: 225px; object-fit: cover;" />
+  
+      <!-- This logic if for the else above to take the movie from assets if a image isn't available controlled by the ngFor above -->     
+      <ng-template #noActorImage>
+        <img src="assets/no-image.png"
+             style="width: 150px; height: 225px; object-fit: cover;" />
+      </ng-template>
+      <ion-card-header>
+        <ion-card-title>{{ actor.character }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
+  
+  <!-- Source: https://www.geeksforgeeks.org/css/make-a-div-horizontally-scrollable-using-css/
+  This will display the cast information in a horizontal scroll -->
   <h2>Crew</h2>
-  <!-- This will show the image and no image is available, it will inject below the image from assests for the no image available -->
-  <ion-card *ngFor="let member of crew" (click)="openPerson(member.id)">
-    <img *ngIf="member.profile_path else noActorImage"
-         [src]="'https://image.tmdb.org/t/p/w500' + member.profile_path" 
-    width="120"     
-    />
-    <ng-template #noActorImage>
-    <img src="assets/no-image.png" 
-    width="120"
-    />
-
-    <!-- This shows the job of each of the crew members -->
+  <div style="display: flex;overflow-x: auto;overflow-y: hidden;gap: 15px;padding: 10px 0;white-space: nowrap;">
+  <!-- The following section is to display the crew from the API call it also includes an else statement to display the no picture from assets -->
+  <ion-card *ngFor="let member of crew"
+    (click)="openPerson(member.id)"
+    style="display: inline-block;min-width: 150px;flex-shrink: 0;text-align: center;">
+    <img *ngIf="member.profile_path; else noCrewImage"
+         [src]="'https://image.tmdb.org/t/p/w500' + member.profile_path"
+         style="width: 150px; height: 225px; object-fit: cover;" />
+    <!-- This logic if for the else above to take the movie from assets if a image isn't available controlled by the ngFor above -->     
+    <ng-template #noCrewImage>
+      <img src="assets/no-image.png"
+           style="width: 150px; height: 225px; object-fit: cover;" />
     </ng-template>
     <ion-card-header>
       <ion-card-title>{{ member.job }}</ion-card-title>
     </ion-card-header>
   </ion-card>
-</ion-content>
+</div>
+
 
 

@@ -13,7 +13,6 @@ import { heart, heartOutline, heartSharp, home } from 'ionicons/icons';
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
-  styleUrls: ['./movie-details.page.scss'],
   imports: [IonIcon, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, NgFor, NgIf, IonButton],
 })
 
@@ -73,7 +72,7 @@ export class MovieDetailsPage {
     this.router.navigate(['/details', id]);
   }
 
-   //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
+  //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
   //Method to navigate to favourites
   goToFavourites() {
     this.router.navigate(['/favourites']);

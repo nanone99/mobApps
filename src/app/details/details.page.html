@@ -1,57 +1,65 @@
 <!-- This html is to display the person's name on the top and then add the home, favourites icon that will trigger the navigation methods below -->
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar style="--background: #032541; color: white;">
     <ion-title>{{ person?.name }}</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="goToFavourites()">
-        <ion-icon slot="icon-only" name="heart" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="heart" color="light"></ion-icon>
       </ion-button>
       <ion-button fill="clear" (click)="goHome()">
-        <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="home" color="light"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="person">
+<!-- This will ensure all the formatting remains the same in the page-->
+<ion-content *ngIf="person" style="--background: #032541; color: white;">
+  <ion-card style="background: #0a3a63; color: white; border-radius: 12px; margin: 16px;">
+     <!-- Top Section: 
+      This will display the picture with the desired formatting and adding the flex to adjust according to the different screen sizes-->
+     <div style="display: flex; justify-content: center; padding-top: 16px;">
+      <img *ngIf="person.profile_path"
+           [src]="'https://image.tmdb.org/t/p/w500' + person.profile_path"
+           style="width: 250px;height: auto;border-radius: 12px;box-shadow: 0 4px 12px rgba(0,0,0,0.5);"/>
+    </div>
 
-  <ion-card>
-     <!-- This will display the picture and information of the actor, DOB, Death day and alias-->
-    <img *ngIf="person.profile_path" [src]="'https://image.tmdb.org/t/p/w500' + person.profile_path" width="140"/>
-
-    <ion-card-header>
-      <ion-card-title>{{ person.name }}</ion-card-title>
-      <ion-card-subtitle>
-        Born: {{ person.birthday }} <br>
-        <span *ngIf="person.deathday">Died: {{ person.deathday }}</span>
-      </ion-card-subtitle>
+    <!-- This will display Information on the person name and DOB on top-->
+    <ion-card-header style="text-align: center; color: white;">
+      <ion-card-title style="font-size: 28px; font-weight: 700; color: white;">{{ person.name }}</ion-card-title>
+      <ion-card-subtitle style="font-size: 18px; color: white; opacity: 0.9;">Born: {{ person.birthday }} <br><span *ngIf="person.deathday">Died: {{ person.deathday }}</span>     </ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content>
-      <p><strong>Also Known As:</strong></p>
-      <p *ngFor="let aka of person.also_known_as">{{ aka }}</p>
-      <p><strong>Biography:</strong></p>
-      <p>{{ person.biography }}</p>
+    
+    <!-- This will the rest of the information such as Alias, Biography, etc-->
+    <ion-card-content style="color: white;">
+      <p style="font-size: 20px; text-align: center; font-weight: 700; margin-bottom: 6px;">Also Known As:</p>
+      <p *ngFor="let aka of person.also_known_as" style="font-size: 18px; text-align: center; margin-left: 10px; margin-bottom: 4px;"> • {{ aka }}</p>
+      <p style="font-size: 20px; text-align: center; font-weight: 700; margin-top: 20px; margin-bottom: 6px;">Biography:</p>
+      <p style="font-size: 18px; text-align: center; line-height: 1.6; opacity: 0.95;"> {{ person.biography }}</p>
     </ion-card-content>
   </ion-card>
 
-  <h2>Other Movies</h2>
-
-  <ion-list>
-    <!-- This will iterate on the movies JSON for that ID of the movie and bring the posted at the end of the line -->
-    <ion-item *ngFor="let movie of movies" (click)="openMovie(movie.id)">
-      <ion-label>
-        {{ movie.title }}
-      </ion-label>
+  <!-- Bottom section where all the movies this cast/crew have made-->
+  <h2 style="color: white; padding-left: 16px;">Other Movies</h2>
+ 
+  <!-- Source: https://www.geeksforgeeks.org/css/make-a-div-horizontally-scrollable-using-css/
+  This is the div section that contains the horizontal scroll for all the movies -->
+  <div style="display: flex; overflow-x: auto; overflow-y: hidden;gap: 15px;padding: 15px;white-space: nowrap;">
+      <div *ngFor="let movie of movies" (click)="openMovie(movie.id)" style="display: inline-block; width: 200px;flex-shrink: 0;position: relative;">
+      
+        <!-- The following section is to display the poster from the API call it also includes an else statement to display the no picture from assets -->
+      <img *ngIf="movie.poster_path else noMovieImage"
+           [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+           style="width: 200px;height: 300px;object-fit: cover;border-radius: 10px;box-shadow: 0 4px 10px rgba(0,0,0,0.4);"/>
+      
+      <!-- This logic if for the else above to take the movie from assets if a movie poster isn't available controlled by the ngFor above -->
+      <ng-template #noMovieImage>
+        <img src="assets/no-image.png" style="width: 150px; height: 225px; object-fit: cover;" />
+      </ng-template>
   
-      <ion-thumbnail slot="end">
-        <ion-img
-          *ngIf="movie.poster_path"
-          [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path"
-        ></ion-img>
-      </ion-thumbnail>
-    </ion-item>
-  </ion-list>
-  
-  
-
+      <!-- This is what displays the movie title at the bottom of the picture  -->
+      <div style="margin-top: 8px;font-size: 15px;font-weight: 600;text-align: center;color: white;white-space: normal;">{{ movie.title }}
+      </div>
+    </div>
+  </div>
 </ion-content>

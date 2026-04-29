@@ -22,6 +22,7 @@ export class MovieDetailsPage {
   cast: any[] = []; //Creates an empty array to store the cast JSON data
   crew: any[] = []; //Creates an empty array to store the crew JSON data
   movieDetails: any = null; //Creates a variable to store the movie details JSON data
+  trailers: any[] = []; //This will create an array for the iteration of the trailers in the movie details page
 
   //This variable stores the first part of the URL that later will be injected with the movieID and the API key
   creditsBaseUrl: string = "https://api.themoviedb.org/3/movie/";
@@ -43,6 +44,7 @@ export class MovieDetailsPage {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getCredits();
     this.getMovieDetails();
+    this.getTrailerDetails()
   }
 
   //Data Retrieval Methods
@@ -63,7 +65,22 @@ export class MovieDetailsPage {
     const url = `https://api.themoviedb.org/3/movie/${this.movieId}?api_key=5e54dc8ed94df0555b86c1f840441c4e`;
     const result = await this.mhs.get({ url });
     this.movieDetails = result.data;
+  } 
+
+  //Source: Capacitator http lecture
+  //Method to bring over the API Json data for getting the videos
+  async getTrailerDetails() {
+    const url = `https://api.themoviedb.org/3/movie/${this.movieId}/videos?api_key=5e54dc8ed94df0555b86c1f840441c4e`;
+    const result = await this.mhs.get({ url });
+    this.trailers = result.data.results;
   }  
+
+  /*Method to link the videos from youtube on a separate tab (tried first to load embedded but angular kept crashing as it was loading all vides on the app
+  after reviewing online, it said that it was just better to use thumbnails that have the link based on the key*/
+  openTrailer(key: string) {
+    window.open(`https://www.youtube.com/watch?v=${key}`, '_blank');
+  }
+  
 
   //Navigation Methods
 

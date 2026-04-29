@@ -3,17 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
 import { NgFor, NgIf } from '@angular/common';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonButton, IonButtons, IonIcon } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonButton, IonButtons, IonIcon, IonBackButton } from "@ionic/angular/standalone";
 import { Router } from '@angular/router';
 import { FavouritesService } from '../services/favourites.service';
 import { addIcons } from 'ionicons';
 import { heart, heartOutline, heartSharp, home } from 'ionicons/icons';
-
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
-  imports: [IonIcon, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, NgFor, NgIf, IonButton],
+  imports: [IonBackButton, IonIcon, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, NgFor, NgIf, IonButton],
 })
 
 export class MovieDetailsPage {
@@ -28,7 +28,7 @@ export class MovieDetailsPage {
   creditsBaseUrl: string = "https://api.themoviedb.org/3/movie/";
 
   //Constructor includes the activated route (to pass the URL id), Myhttp call, routing to the other pages and favourites storage inonic facility to save the faourites data 
-  constructor(private route: ActivatedRoute, private mhs: MyHttp, private router: Router,private favs: FavouritesService) {
+  constructor(private route: ActivatedRoute, private mhs: MyHttp,private favs: FavouritesService, private nav: NavigationService) {
     
     //Source: https://stackoverflow.com/questions/77726607/ionicons-are-not-displayed-in-ionic-7-1-1-angular-17-0-8
     //This will load the icons for favourites at the top of the page
@@ -81,32 +81,32 @@ export class MovieDetailsPage {
     window.open(`https://www.youtube.com/watch?v=${key}`, '_blank');
   }
   
-
-  //Navigation Methods
-
-  //this method is to open the person data when the image of clicked on the html
-  openPerson(id: number) {
-    this.router.navigate(['/details', id]);
-  }
-
-  //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
-  //Method to navigate to favourites
-  goToFavourites() {
-    this.router.navigate(['/favourites']);
-  }  
-
-  //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
-  //Method to navigate home when the home icon is pressed
-  goHome() {
-    this.router.navigate(['/home']);
-  }  
-      
   // Storage Method
 
   //Source: Storage Lecture
   //This method is to add to favourites which the logic is in the service favourites
   async addToFavourites() {
     await this.favs.add(this.movieDetails);
+  }
+
+  //Navigation service methods
+
+  //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
+  //This will call the openPerson methiod from the navigation services to go to details page
+  openPerson(id: number) {
+    this.nav.openPerson(id);
+  }
+
+  //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
+  //This will call the goToFavourites methiod from the navigation services to go to favourites
+  goToFavourites() {
+    this.nav.goToFavourites();
+  }
+
+  //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
+  //Method to navigate home when the home icon is pressed from the naviagation service
+  goHome() {
+    this.nav.goHome();
   }
 
 }

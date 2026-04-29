@@ -10,6 +10,9 @@
         <ion-icon slot="icon-only" name="home" olor="light"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -86,16 +89,7 @@
      make the link safe, otherwise youtube would not provide access and then i encountered the issue with the crash of angular and ionic due to the size
      so after looking online, i found this way to only keep the image that comes from youtube and then just open it separately -->
             <img [src]="'https://img.youtube.com/vi/' + t.key + '/maxresdefault.jpg'"
-            style="
-            width: 360px;
-            height: 215px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-          "
-        />
+            style="width: 360px;height: 215px;object-fit: cover;border-radius: 10px;display: block;margin-left: auto;margin-right: auto;"/>
       <ion-card-header>
         <ion-card-title style="color: white;">{{ t.name }}</ion-card-title>
       </ion-card-header>

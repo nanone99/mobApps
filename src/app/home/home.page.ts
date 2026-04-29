@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { heart, heartOutline, heartSharp } from 'ionicons/icons';
+import { NavigationService } from '../services/navigation.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class HomePage {
   displayedMovies: any[] = []; //Creates an empty array for the copy API TrendingMovies list that will be displayed
   searchText: string = ""; // Creates an empty variable that will be used in the search bar
   currentTitle: string = ""; // This will create a varaible to display between Today's trending movies and title + Movies
-  selectedMovie: any = null;
+  selectedMovie: any = null; // This is to ensure the movie is displayed in the bottom part of the home screen when selected
 
 
 
@@ -38,7 +39,7 @@ export class HomePage {
     "https://api.themoviedb.org/3/search/movie?api_key=5e54dc8ed94df0555b86c1f840441c4e&query="; // URL and then we will add the search variables seearchtext ="toystory"
 
   //This construction will bring as parameters the myHttp service for the API connection and the router for navigation.
-  constructor(private mhs: MyHttp, private router: Router,) {
+  constructor(private mhs: MyHttp,private nav: NavigationService) {
     
     //Source: https://stackoverflow.com/questions/77726607/ionicons-are-not-displayed-in-ionic-7-1-1-angular-17-0-8
     addIcons({
@@ -100,12 +101,12 @@ export class HomePage {
 
   //This will help us route the id to the movie details page to ensure it is passed over the URL.
   openDetails(id: number) {
-    this.router.navigate(['/movie-details', id]);
+    this.nav.openDetails(id);
   }
 
   //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
   goToFavourites() {
-    this.router.navigate(['/favourites']);
-  }  
+    this.nav.goToFavourites();
+  } 
     
 }

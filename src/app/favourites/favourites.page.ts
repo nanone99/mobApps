@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { FavouritesService } from '../services/favourites.service';
 import { Router } from '@angular/router';
-import { IonContent, IonButton, IonHeader, IonToolbar, IonButtons, IonIcon, IonTitle } from "@ionic/angular/standalone";
+import { IonContent, IonButton, IonHeader, IonToolbar, IonButtons, IonIcon, IonTitle, IonBackButton } from "@ionic/angular/standalone";
 import { NgFor } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { home } from 'ionicons/icons';
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.page.html',
-  imports: [IonTitle, IonIcon, IonButtons, IonToolbar, IonHeader, IonContent,IonButton,NgFor]
+  imports: [IonBackButton, IonTitle, IonIcon, IonButtons, IonToolbar, IonHeader, IonContent,IonButton,NgFor]
 })
 
 export class FavouritesPage {
@@ -17,7 +18,7 @@ export class FavouritesPage {
   favouriteMovies: any[] = []; //This array will be used to store the favourites movies saved
 
   //The constructor will bring the favouritesService for storage, router for navigation and then addIcons will load the home icon on top
-  constructor(private favs: FavouritesService, private router: Router) {
+  constructor(private favs: FavouritesService, private nav: NavigationService) {
     addIcons({
       home
     });
@@ -41,14 +42,15 @@ export class FavouritesPage {
 
   //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
   //Method to navigate to details
+  //This will help us route the id to the movie details page to ensure it is passed over the URL.
   openDetails(id: number) {
-    this.router.navigate(['/movie-details', id]);
+    this.nav.openDetails(id);
   }
 
   //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
   //Method to navigate home when the home icon is pressed
   goHome() {
-    this.router.navigate(['/home']);
-  } 
+    this.nav.goHome();
+  }
 }
 

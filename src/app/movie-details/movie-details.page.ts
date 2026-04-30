@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { MyHttp } from '../services/my-http';
-import { HttpOptions } from '@capacitor/core';
-import { NgFor, NgIf } from '@angular/common';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonButton, IonButtons, IonIcon, IonBackButton } from "@ionic/angular/standalone";
-import { Router } from '@angular/router';
-import { FavouritesService } from '../services/favourites.service';
-import { addIcons } from 'ionicons';
-import { heart, heartOutline, heartSharp, home } from 'ionicons/icons';
-import { NavigationService } from '../services/navigation.service';
+import { Component } from '@angular/core'; //Default import from angular
+import { ActivatedRoute } from '@angular/router'; //Default import from angular 
+import { MyHttp } from '../services/my-http'; // Import for the API calls service
+import { HttpOptions } from '@capacitor/core'; // Import for the API calls service
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonButton, IonButtons, IonIcon, IonBackButton } from "@ionic/angular/standalone"; // Import for ionic http native elements
+import { FavouritesService } from '../services/favourites.service'; //Import for storage favourites services
+import { addIcons } from 'ionicons'; // Import for icons
+import { heart, heartOutline, heartSharp, home } from 'ionicons/icons'; // Import for icons
+import { NavigationService } from '../services/navigation.service'; // Import for navigation services
 
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
-  imports: [IonBackButton, IonIcon, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, NgFor, NgIf, IonButton],
+  imports: [IonBackButton, IonIcon, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, CommonModule, FormsModule, IonButton],
 })
 
 export class MovieDetailsPage {

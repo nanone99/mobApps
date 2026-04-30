@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, NgIf, NgFor } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonButtons, IonButton, IonIcon, IonBackButton } from '@ionic/angular/standalone';
-import { MyHttp } from '../services/my-http';
-import { HttpOptions } from '@capacitor/core';
-import { addIcons } from 'ionicons';
-import { heart, heartOutline, heartSharp, home } from 'ionicons/icons';
-import { NavigationService } from '../services/navigation.service';
+import { Component } from '@angular/core'; //Default import from angular
+import { ActivatedRoute } from '@angular/router'; //Default import from angular 
+import { FormsModule } from '@angular/forms'; //Import for ngModel
+import { CommonModule } from '@angular/common'; // Import for ngif,ngfor
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButtons, IonButton, IonIcon, IonBackButton } from '@ionic/angular/standalone'; // Import for ionic http native elements
+import { MyHttp } from '../services/my-http'; // Import for the API calls service
+import { addIcons } from 'ionicons'; // Import for icons
+import { heart, home } from 'ionicons/icons'; //Import for home
+import { NavigationService } from '../services/navigation.service'; // Import for the navigation servie
+import { OnInit } from '@angular/core'; // Import for onInit
 
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
   standalone: true,
-  imports: [IonBackButton, IonIcon, IonButton, IonButtons,IonContent, IonHeader, IonTitle, IonToolbar,IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,CommonModule, FormsModule, NgIf, NgFor]
+  imports: [IonBackButton, IonIcon, IonButton, IonButtons,IonContent, IonHeader, IonTitle, IonToolbar,IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,CommonModule, FormsModule, CommonModule,FormsModule]
 })
 export class DetailsPage implements OnInit {
 

@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
-import { FavouritesService } from '../services/favourites.service';
-import { Router } from '@angular/router';
-import { IonContent, IonButton, IonHeader, IonToolbar, IonButtons, IonIcon, IonTitle, IonBackButton } from "@ionic/angular/standalone";
-import { NgFor } from '@angular/common';
-import { addIcons } from 'ionicons';
-import { home } from 'ionicons/icons';
-import { NavigationService } from '../services/navigation.service';
+import { Component } from '@angular/core'; //Default import from angular
+import { FavouritesService } from '../services/favourites.service';//Import for storage favourites services
+import { IonContent, IonButton, IonHeader, IonToolbar, IonButtons, IonIcon, IonTitle, IonBackButton } from "@ionic/angular/standalone"; // Import for ionic http native elements
+import { CommonModule } from '@angular/common'; // Import for ngif,ngfor
+import { addIcons } from 'ionicons'; // Import for icons
+import { home } from 'ionicons/icons'; //Import the home icon
+import { NavigationService } from '../services/navigation.service'; // Import for navigation services
 
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.page.html',
-  imports: [IonBackButton, IonTitle, IonIcon, IonButtons, IonToolbar, IonHeader, IonContent,IonButton,NgFor]
+  imports: [IonBackButton, IonTitle, IonIcon, IonButtons, IonToolbar, IonHeader, IonContent,IonButton,CommonModule]
 })
 
 export class FavouritesPage {
@@ -41,14 +40,13 @@ export class FavouritesPage {
   //Navigation Methods
 
   //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
-  //Method to navigate to details
-  //This will help us route the id to the movie details page to ensure it is passed over the URL.
+  ///Method to navigate favourites when the cast and crew image is pressed from the naviagation service
   openDetails(id: number) {
     this.nav.openDetails(id);
   }
 
   //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
-  //Method to navigate home when the home icon is pressed
+  //Method to navigate home when the home icon is pressed from the navigation services
   goHome() {
     this.nav.goHome();
   }

@@ -35,6 +35,8 @@
     <ion-card-content style="color: white;">
       <p style="font-size: 20px; text-align: center; font-weight: 700; margin-bottom: 6px;">Also Known As:</p>
       <p *ngFor="let aka of person.also_known_as" style="font-size: 18px; text-align: center; margin-left: 10px; margin-bottom: 4px;"> • {{ aka }}</p>
+      <p style="font-size: 20px; text-align: center; font-weight: 700; margin-bottom: 6px;">Place of Birth:</p>
+      <p style="font-size: 18px; text-align: center; margin-left: 10px; margin-bottom: 4px;"> • {{ person.place_of_birth }}</p>
       <p style="font-size: 20px; text-align: center; font-weight: 700; margin-top: 20px; margin-bottom: 6px;">Biography:</p>
       <p style="font-size: 18px; text-align: center; line-height: 1.6; opacity: 0.95;"> {{ person.biography }}</p>
     </ion-card-content>

@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonText, IonSearchbar, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
-import { MyHttp } from '../services/my-http';
-import { HttpOptions } from '@capacitor/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { addIcons } from 'ionicons';
-import { heart, heartOutline, heartSharp } from 'ionicons/icons';
-import { NavigationService } from '../services/navigation.service';
+
+import { FormsModule } from '@angular/forms'; //Import for ngModel
+import { CommonModule } from '@angular/common'; // Import for ngif,ngfor
+import { Component } from '@angular/core'; //Default import from angular
+import { MyHttp } from '../services/my-http'; // Import for the API calls service
+import { HttpOptions } from '@capacitor/core'; // Import for the API calls service
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonText, IonSearchbar, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone'; // Import for ionic http native elements
+import { addIcons } from 'ionicons'; // Import for icons
+import { heart, heartOutline, heartSharp, home } from 'ionicons/icons'; // Import for icons
+import { NavigationService } from '../services/navigation.service'; // Import for navigation services
 
 
 @Component({
@@ -99,12 +99,13 @@ export class HomePage {
 
   //Navigation Methods
 
-  //This will help us route the id to the movie details page to ensure it is passed over the URL.
+  //This will call the open details method from the navigation services
   openDetails(id: number) {
     this.nav.openDetails(id);
   }
 
   //Source: https://stackoverflow.com/questions/40245847/how-to-go-to-another-page-with-a-button-click-with-ionic
+  //This will call the goToFavourites methiod from the navigation services to go to favourites
   goToFavourites() {
     this.nav.goToFavourites();
   } 

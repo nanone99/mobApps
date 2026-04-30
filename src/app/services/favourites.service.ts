@@ -30,9 +30,13 @@ export class FavouritesService {
     await this.storage.set(this.key, value);
   }
 
-  //This will aload the saved array, push a new movie and save the updated list
+  //This will load the saved array, push a new movie and save the updated list if it exists already it wont be added
   async add(movie: any) {
     const favs = await this.get();
+    const exists = favs.some((m: any) => m.id === movie.id);
+  if (exists) {
+    return; 
+  }
     favs.push(movie);
     await this.set(favs);
   }
